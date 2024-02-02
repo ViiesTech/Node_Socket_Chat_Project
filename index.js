@@ -61,6 +61,10 @@ io.on('connection', (socket) => {
         const reciverId = data.Reciver_id._id
 
 
+
+        console.log("data sender data:", data.Sender_id,);
+        console.log("data sender data:", data.Reciver_id,);
+
         // Check if the chat already exists
         const existingChat = await Chat.findOne({
             $or: [
