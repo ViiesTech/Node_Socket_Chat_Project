@@ -1,0 +1,6 @@
+socke.on kaam yeh krta agr koi bhi emit hoga jo sender krta hai toh on us event name pai listen krlaiga foran ab client side
+say bhejo ya server side say dono same
+
+
+socket.emit('eventname',{data: abcd})  "for sending"
+socket.on('eventname', ) "for listening"
