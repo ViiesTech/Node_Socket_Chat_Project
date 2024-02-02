@@ -10,6 +10,7 @@ const Route = require('./Routes.js');
 const db = require('./DatabaseConnect');
 const User = require('./models/UserModel.js');
 const Chat = require('./models/ChatModel.js');
+const ChatUsers = require('./models/ChatUsersModal.js');
 
 app.use(cors())
 app.use(express.json())
@@ -60,30 +61,26 @@ io.on('connection', (socket) => {
         const senderId = data.Sender_id._id
         const reciverId = data.Reciver_id._id
 
-
-
-        console.log("data sender data:", data.Sender_id,);
-        console.log("data sender data:", data.Reciver_id,);
-
         // Check if the chat already exists
-        const existingChat = await Chat.findOne({
+        const existingChat = await ChatUsers.findOne({
             $or: [
-                { senderId: senderId, reciverId: reciverId },
-                { senderId: reciverId, reciverId: senderId }
+                { sender_id: senderId, receiver_id: reciverId },
+                { sender_id: reciverId, receiver_id: senderId }
             ]
         });
 
         if (existingChat) {
             console.log("Chat already exists:", existingChat);
         } else {
-            const ChatModal = await Chat({
-                senderId: data.Sender_id,
-                reciverId: data.Reciver_id,
-
+            const ChatUserModal = await ChatUsers({
+                sender_data: data.Sender_id,
+                reciver_data: data.Reciver_id,
+                sender_id: senderId,
+                receiver_id: reciverId
             })
-            const saveChat = await ChatModal.save()
-            console.log("Chat saved successfully:", data.Sender_id, data.reciverId );
 
+            const saveChat = await ChatUserModal.save()
+            console.log("Chat saved successfully:", saveChat );
         }
 
     })
