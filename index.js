@@ -8,6 +8,7 @@ const cors = require('cors')
 const Route = require('./Routes.js');
 
 const db = require('./DatabaseConnect');
+const User = require('./models/UserModel.js');
 
 app.use(cors())
 app.use(express.json())
@@ -51,7 +52,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', async() => {
         console.log('a user disconnected', socket.id);
 
-        await User.updateOne({socketId : socket.id}, {$set: {socketId : ""}})
+        await User.updateOne({socketId : socket?.id}, {$set: {socketId : ""}})
         // Perform any cleanup or additional actions upon user disconnect, if needed
     });
 
