@@ -78,7 +78,7 @@ io.on('connection', (socket) => {
 
             })
             const saveChat = await ChatModal.save()
-            console.log("Chat saved successfully:", saveChat);
+            console.log("Chat saved successfully:", data.Sender_id, data.reciverId );
 
         }
 
