@@ -48,11 +48,21 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('sendMessage', async (data) => {
+        console.log("Sending message", data)
+    })
+
+
+    socket.on('Sender_Reciver_data', async (data) => {
+        console.log("Sender_Reciver_data", data)
+    })
+
+
     // // Handle user disconnect
-    socket.on('disconnect', async() => {
+    socket.on('disconnect', async () => {
         console.log('a user disconnected', socket.id);
 
-        await User.updateOne({socketId : socket?.id}, {$set: {socketId : ""}})
+        await User.updateOne({ socketId: socket?.id }, { $set: { socketId: "" } })
         // Perform any cleanup or additional actions upon user disconnect, if needed
     });
 
