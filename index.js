@@ -47,12 +47,13 @@ io.on('connection', (socket) => {
         }
     });
 
-    // Handle user disconnect
-    socket.on('disconnect', () => {
-        console.log('a user disconnected', socket.id);
+    // // Handle user disconnect
+    // socket.on('disconnect', () => {
+    //     console.log('a user disconnected', socket.id);
 
-        // Perform any cleanup or additional actions upon user disconnect, if needed
-    });
+        
+    //     // Perform any cleanup or additional actions upon user disconnect, if needed
+    // });
 
 
 });
