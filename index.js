@@ -9,6 +9,7 @@ const Route = require('./Routes.js');
 
 const db = require('./DatabaseConnect');
 const User = require('./models/UserModel.js');
+const Chat = require('./models/ChatModel.js');
 
 app.use(cors())
 app.use(express.json())
@@ -55,6 +56,32 @@ io.on('connection', (socket) => {
 
     socket.on('Sender_Reciver_data', async (data) => {
         console.log("Sender_Reciver_data", data)
+
+        const senderId = data.Sender_id._id
+        const reciverId = data.Reciver_id._id
+
+
+        // Check if the chat already exists
+        const existingChat = await Chat.findOne({
+            $or: [
+                { senderId: senderId, reciverId: reciverId },
+                { senderId: reciverId, reciverId: senderId }
+            ]
+        });
+
+        if (existingChat) {
+            console.log("Chat already exists:", existingChat);
+        } else {
+            const ChatModal = await Chat({
+                senderId: data.Sender_id,
+                reciverId: data.Reciver_id,
+
+            })
+            const saveChat = await ChatModal.save()
+            console.log("Chat saved successfully:", saveChat);
+
+        }
+
     })
 
 
