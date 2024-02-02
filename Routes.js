@@ -10,6 +10,8 @@ Route.post('/Login', AuthController.Login)
 
 
 Route.get('/getUser', MainController.getUser)
+Route.get('/getAllChatUsers', MainController.getAllChatUsers)
+
 
 
 module.exports = Route

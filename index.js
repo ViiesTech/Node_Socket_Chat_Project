@@ -9,7 +9,7 @@ const Route = require('./Routes.js');
 
 const db = require('./DatabaseConnect');
 const User = require('./models/UserModel.js');
-const Chat = require('./models/ChatModel.js');
+const MessageModal = require('./models/MessageModal.js');
 const ChatUsers = require('./models/ChatUsersModal.js');
 
 app.use(cors())
@@ -56,7 +56,6 @@ io.on('connection', (socket) => {
 
 
     socket.on('Sender_Reciver_data', async (data) => {
-        console.log("Sender_Reciver_data", data)
 
         const senderId = data.Sender_id._id
         const reciverId = data.Reciver_id._id
@@ -80,7 +79,7 @@ io.on('connection', (socket) => {
             })
 
             const saveChat = await ChatUserModal.save()
-            console.log("Chat saved successfully:", saveChat );
+            console.log("Chat saved successfully:", saveChat);
         }
 
     })
