@@ -45,16 +45,15 @@ io.on('connection', (socket) => {
             // Send an error response back to the client if needed
             socket.emit('loginError', { message: 'Error updating user details' });
         }
-
-
-        // // Handle user disconnect
-        socket.on('disconnect', () => {
-            console.log('a user disconnected', data?._id);
-            // Perform any cleanup or additional actions upon user disconnect, if needed
-        });
-
     });
 
+    // // Handle user disconnect
+    socket.on('disconnect', async() => {
+        console.log('a user disconnected', socket.id);
+
+        await User.updateOne({socketId : socket.id}, {$set: {socketId : ""}})
+        // Perform any cleanup or additional actions upon user disconnect, if needed
+    });
 
 
 });
