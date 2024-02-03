@@ -9,8 +9,8 @@ Route.post('/Register', AuthController.Register)
 Route.post('/Login', AuthController.Login)
 
 
-Route.get('/getUser', MainController.getUser)
-Route.get('/getAllChatUsers', MainController.getAllChatUsers)
+Route.post('/getUser', MainController.getUser)
+Route.post('/getAllChatUsers', MainController.getAllChatUsers)
 
 
 
