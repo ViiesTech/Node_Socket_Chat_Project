@@ -1,5 +1,6 @@
 const User = require('../models/UserModel.js')
 const AllChatUsers = require('../models/ChatUsersModal.js')
+const MessageModal = require('../models/MessageModal.js')
 class MainController {
     static getUser = async (req, res) => {
         const { id } = req.body
@@ -37,7 +38,8 @@ class MainController {
 
 
 
-        const existingChats = await AllChatUsers.find({
+
+        const existingChats = await MessageModal.find({
             $or: [
                 { sender: id, receiver: FriendId },
                 { receiver: FriendId, receiver: id },
