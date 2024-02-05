@@ -32,23 +32,23 @@ class MainController {
     }
 
 
-    // static getChat = async (req, res) => {
-    //     const { id, FriendId } = req.body
+    static getChat = async (req, res) => {
+        const { id, FriendId } = req.body
 
 
 
-    //     const existingChats = await AllChatUsers.find({
-    //         $or: [
-    //             { sender_id: id },
-    //             { receiver_id: id },
-    //         ]
-    //     });
+        const existingChats = await AllChatUsers.find({
+            $or: [
+                { sender: id, receiver: FriendId },
+                { receiver: FriendId, receiver: id },
+            ]
+        });
 
-    //     res.send({
-    //         "success": true,
-    //         "data": existingChats
-    //     });
-    // }
+        res.send({
+            "success": true,
+            "data": existingChats
+        });
+    }
 }
 
 

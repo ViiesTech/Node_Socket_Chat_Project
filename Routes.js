@@ -11,7 +11,7 @@ Route.post('/Login', AuthController.Login)
 
 Route.post('/getUser', MainController.getUser)
 Route.post('/getAllChatUsers', MainController.getAllChatUsers)
-
+Route.post('/getAllChat', MainController.getChat )
 
 
 module.exports = Route
