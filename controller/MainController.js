@@ -41,8 +41,8 @@ class MainController {
 
         const existingChats = await MessageModal.find({
             $or: [
-                { sender: id, receiver: FriendId },
-                { receiver: FriendId, receiver: id },
+                { $and: [{ sender: id }, { receiver: FriendId }] },
+                { $and: [{ sender: FriendId }, { receiver: id }] },
             ]
         });
 
@@ -54,7 +54,7 @@ class MainController {
 
 
     static deleteAll = async() => {
-        await MessageModal.delete({})
+        await MessageModal.remove()
     }
 }
 
