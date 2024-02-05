@@ -50,34 +50,41 @@ io.on('connection', (socket) => {
         }
     });
 
+
+    socket.on('join', (data) => {
+        socket.join(`${data.UserId}_${data.FriendsId}`);
+    });
+
     socket.on('sendMessage', async (messageData) => {
         console.log("Sending message", messageData);
-    
+
         const senderId = messageData.Sender_id;
         const reciverId = messageData.Reciver_id;
-    
+
         const CreateChat = await MessageModal({
             sender: senderId,
             receiver: reciverId,
             text: messageData.Message,
         });
-    
+
         await CreateChat.save();
-    
+
         const data = await MessageModal.find({
             $or: [
                 { sender: senderId, receiver: reciverId },
                 { sender: reciverId, receiver: senderId },
             ],
         });
-    
-        // Emit the chat data to both sender and receiver
-        io.to(socket.id).emit(`${senderId}_${reciverId}`, { data });
-        io.to(socket.id).emit(`${reciverId}_${senderId}`, { data });
 
+
+        // Emit the chat data to both sender and receiver
+        io.to(`${senderId}_${reciverId}`).emit("message", { data });
+        io.to(`${reciverId}_${senderId}`).emit("message", { data });
+
+        // socket.on("")
 
     });
-    
+
 
 
     socket.on('Sender_Reciver_data', async (data) => {
