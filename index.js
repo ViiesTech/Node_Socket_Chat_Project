@@ -60,14 +60,24 @@ io.on('connection', (socket) => {
             sender: senderId,
             receiver:  reciverId,
             text: data.Message
-
         })  
 
         await CreateChat.save()
 
+        const getChat = MessageModal.find({
+            $or :[
+                { sender: senderId, receiver: reciverId },
+                { sender: reciverId, receiver: senderId }
+            ]
+        })
+
+        socket.emit(`${senderId}_${reciverId}`, {getChat})
+        socket.emit(`${reciverId}_${senderId}`, {getChat})
+
 
     })
 
+    
 
     socket.on('Sender_Reciver_data', async (data) => {
 
