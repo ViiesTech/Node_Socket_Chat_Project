@@ -51,9 +51,6 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('join', (data) => {
-        socket.join(`${data.UserId}_${data.FriendsId}`);
-    });
 
     socket.on('sendMessage', async (messageData) => {
         console.log("Sending message", messageData);
