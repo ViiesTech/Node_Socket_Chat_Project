@@ -11,10 +11,7 @@ const ChatSchema = mongoose.Schema({
         ref: 'User',
         require: true
     },
-    text: {
-        type: String,
-        require: true
-    },
+    text: String,
     timestamp: {
         type: Date,
         default: Date.now
