@@ -53,15 +53,18 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', async (data) => {
         console.log("Sending message", data)
 
-        // const senderId = data.senderId
-        // const reciverId = data.reciverId
+        const senderId = data.Sender_id
+        const reciverId = data.Reciver_id
 
-        // const CreateChat = await MessageModal({
-        //     sender: senderId,
-        //     receiver:  reciverId,
-        //     text: data.message
+        const CreateChat = await MessageModal({
+            sender: senderId,
+            receiver:  reciverId,
+            text: data.Message
 
-        // })
+        })  
+
+        await CreateChat.save()
+
 
     })
 
@@ -81,16 +84,7 @@ io.on('connection', (socket) => {
 
         if (existingChat) {
 
-
-            const CreateChatInExist = await MessageModal({
-                sender: senderId,
-                receiver: reciverId,
-                text: data.Message
-            })
-
-            console.log("Created Chat in existing chat", data)
-            await CreateChatInExist.save()
-
+            console.log("Chat with user Exist")
 
         } else {
             const ChatUserModal = await ChatUsers({
@@ -100,16 +94,7 @@ io.on('connection', (socket) => {
                 receiver_id: reciverId
             })
 
-            const CreateChat = await MessageModal({
-                sender: senderId,
-                receiver: reciverId,
-                text: data.Message
-            })
-
-            console.log("Created new Chat", data)
-
             await ChatUserModal.save()
-            await CreateChat.save()
 
         }
 
