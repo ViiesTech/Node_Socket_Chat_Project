@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
                 text: data.Message
             })
 
-            console.log("Created Chat in existing chat", data.Message)
+            console.log("Created Chat in existing chat", data)
             await CreateChatInExist.save()
 
 
@@ -106,7 +106,7 @@ io.on('connection', (socket) => {
                 text: data.Message
             })
 
-            console.log("Created new Chat", data.Message)
+            console.log("Created new Chat", data)
 
             await ChatUserModal.save()
             await CreateChat.save()
