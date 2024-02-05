@@ -78,8 +78,8 @@ io.on('connection', (socket) => {
 
 
         // Emit the chat data to both sender and receiver
-        io.to(`${senderId}_${reciverId}`).emit("message", { data });
-        io.to(`${reciverId}_${senderId}`).emit("message", { data });
+        socket.emit(`${senderId}_${reciverId}`, { data });
+        socket.emit(`${reciverId}_${senderId}`, { data });
 
         // socket.on("")
 
