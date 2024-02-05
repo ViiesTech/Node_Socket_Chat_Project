@@ -73,10 +73,9 @@ io.on('connection', (socket) => {
     
         // Emit the chat data to both sender and receiver
         io.to(socket.id).emit(`${senderId}_${reciverId}`, { getChat });
-        const receiverSocket = io.sockets.connected[reciverId];
-        if (receiverSocket) {
-            receiverSocket.emit(`${reciverId}_${senderId}`, { getChat });
-        }
+        io.to(socket.id).emit(`${reciverId}_${senderId}`, { getChat });
+
+
     });
     
 
