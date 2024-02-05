@@ -30,6 +30,25 @@ class MainController {
             "data": existingChats
         });
     }
+
+
+    // static getChat = async (req, res) => {
+    //     const { id, FriendId } = req.body
+
+
+
+    //     const existingChats = await AllChatUsers.find({
+    //         $or: [
+    //             { sender_id: id },
+    //             { receiver_id: id },
+    //         ]
+    //     });
+
+    //     res.send({
+    //         "success": true,
+    //         "data": existingChats
+    //     });
+    // }
 }
 
 
