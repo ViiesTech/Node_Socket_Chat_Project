@@ -73,14 +73,11 @@ io.on('connection', (socket) => {
             ],
         });
 
-
-        const FriendSocketId = await User.findOne({_id : reciverId})
-
-        console.log("Data exist", FriendSocketId)
         // Emit the chat data to both sender and receiver
-        socket.emit(`${senderId}_${reciverId}`, { data });
-        socket.emit(`${reciverId}_${senderId}`, { data });
+        io.emit(`${senderId}_${reciverId}_message`, { data });
+        io.emit(`${reciverId}_${senderId}_message`, { data });
 
+        
         // socket.on("")
 
     });
