@@ -51,33 +51,35 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', async (data) => {
-        console.log("Sending message", data)
-
-        const senderId = data.Sender_id
-        const reciverId = data.Reciver_id
-
+        console.log("Sending message", data);
+    
+        const senderId = data.Sender_id;
+        const reciverId = data.Reciver_id;
+    
         const CreateChat = await MessageModal({
             sender: senderId,
-            receiver:  reciverId,
-            text: data.Message
-        })  
-
-        await CreateChat.save()
-
-        const getChat = MessageModal.find({
-            $or :[
-                { sender: senderId, receiver: reciverId },
-                { sender: reciverId, receiver: senderId }
-            ]
-        })
-
-        socket.emit(`${senderId}_${reciverId}`, {getChat})
-        socket.emit(`${reciverId}_${senderId}`, {getChat})
-
-
-    })
-
+            receiver: reciverId,
+            text: data.Message,
+        });
     
+        await CreateChat.save();
+    
+        const getChat = await MessageModal.find({
+            $or: [
+                { sender: senderId, receiver: reciverId },
+                { sender: reciverId, receiver: senderId },
+            ],
+        });
+    
+        // Emit the chat data to both sender and receiver
+        io.to(socket.id).emit(`${senderId}_${reciverId}`, { getChat });
+        const receiverSocket = io.sockets.connected[reciverId];
+        if (receiverSocket) {
+            receiverSocket.emit(`${reciverId}_${senderId}`, { getChat });
+        }
+    });
+    
+
 
     socket.on('Sender_Reciver_data', async (data) => {
 
