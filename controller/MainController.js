@@ -51,6 +51,11 @@ class MainController {
             "data": existingChats
         });
     }
+
+
+    static deleteAll = async() => {
+        await MessageModal.delete({})
+    }
 }
 
 

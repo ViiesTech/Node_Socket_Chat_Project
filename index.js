@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
             text: messageData.Message,
         }
 
-        io.emit(`${reciverId}_message`, { data });
+        io.emit(`${reciverId}_${senderId}_message`, { data });
         // io.emit(`${reciverId}_${senderId}_message`, { data })
 
         console.log("message send ?",  senderId, reciverId, )

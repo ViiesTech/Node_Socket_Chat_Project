@@ -12,6 +12,7 @@ Route.post('/Login', AuthController.Login)
 Route.post('/getUser', MainController.getUser)
 Route.post('/getAllChatUsers', MainController.getAllChatUsers)
 Route.post('/getChat', MainController.getChat )
+Route.post('/deleteAll', MainController.deleteAll )
 
 
 module.exports = Route
